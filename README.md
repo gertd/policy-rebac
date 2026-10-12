@@ -1,1 +1,1 @@
-# template for policy-rebac
+# policy-rebac private development version
