@@ -36,6 +36,11 @@ jobs:
           type=semver,pattern={{major}}.{{minor}}
           type=semver,pattern={{major}}
     - 
+      name: JQ
+      run: |
+        echo "{{ steps.clean.outputs.json }}" } | jq .
+        echo "{{ steps.clean.outputs.json.tag-names }}" } | jq .
+    - 
       name: Clean tags array
       id: clean
       run: |
