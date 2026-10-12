@@ -36,17 +36,15 @@ jobs:
           type=semver,pattern={{major}}.{{minor}}
           type=semver,pattern={{major}}
     - 
-      name: JQ
+      name: Clean Tags
+      id: clean
       env:
         DOCKER_META_JSON: ${{ steps.meta.outputs.json }}
       run: |
-        jq -c --arg pre "${{ steps.config.outputs.server }}/${{ steps.config.outputs.repo }}:" '.["tag-names"] | map($pre + .)' <<< "$DOCKER_META_JSON"
-    - 
-      name: Clean tags array
-      id: clean
-      run: |
-        RESULT=$(echo "{{ steps.meta.outputs.json)['tag-names'] }}" | jq -c --arg pre "${{ steps.config.outputs.server }}/${{ steps.config.outputs.repo }}:" '.["tag-names"] | map($pre + .)')
-        echo "tags=${RESULT}" >> $GITHUB_OUTPUT
+        RESULT=$(jq -c --arg pre "${{ steps.config.outputs.server }}/${{ steps.config.outputs.repo }}:" '.["tag-names"] | map($pre + .)' <<< "$DOCKER_META_JSON")
+        echo "tags<<EOF" >> "$GITHUB_OUTPUT"
+        echo "$RESULT" >> "$GITHUB_OUTPUT"
+        echo "EOF" >> "$GITHUB_OUTPUT"
     -
       name: Use Tags Array
       run: |
