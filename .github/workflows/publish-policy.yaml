@@ -39,7 +39,7 @@ jobs:
       name: Pass clean tags array
       env:
         # GitHub automatically converts the object reference into a clean JSON array
-        CLEAN_TAGS_JSON: ${{ json(fromJSON(steps.meta.outputs.json).tags) }}
+        CLEAN_TAGS_JSON: ${{ toJSON(fromJSON(steps.meta.outputs.json).tags) }}
       run: |
         echo "Your clean array is ready: $CLEAN_TAGS_JSON"
 
