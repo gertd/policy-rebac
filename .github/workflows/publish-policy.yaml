@@ -37,6 +37,7 @@ jobs:
           type=semver,pattern={{major}}
     - 
       name: Pass clean tags array
+      id: clean
       env:
         # GitHub automatically converts the object reference into a clean JSON array
         CLEAN_TAGS_JSON: >-
@@ -77,7 +78,7 @@ jobs:
       uses: opcr-io/policy-tag-action@v4
       with:
         source_tag: ${{ steps.config.outputs.server }}/${{ steps.config.outputs.repo }}:latest
-        target_tags: ${{ fromJSON(steps.meta.outputs.json).tags }}
+        target_tags: ${{ env.CLEAN_TAGS_JSON }}
         verbosity: debug
       env:
         POLICY_DEFAULT_DOMAIN: ${{ steps.config.outputs.server }}
