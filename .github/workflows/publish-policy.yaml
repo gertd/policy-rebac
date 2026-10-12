@@ -49,6 +49,11 @@ jobs:
         echo "tags<<EOF" >> $GITHUB_OUTPUT
         echo "$RAW_ARRAY" >> $GITHUB_OUTPUT
         echo "EOF" >> $GITHUB_OUTPUT
+        echo "$RAW_ARRAY"
+    -
+      name: Use Tags Array
+      run:
+        echo "$RAW_ARRAY"
     - 
       name: Policy Login
       id: policy-login
