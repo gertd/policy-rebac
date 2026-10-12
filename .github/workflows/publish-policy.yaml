@@ -54,7 +54,12 @@ jobs:
         rego_version: "rego.v1"
       env:
         POLICY_DEFAULT_DOMAIN: ${{ steps.config.outputs.server }}
-    - 
+    -
+      name: Dump meta
+      id: dump-meta
+      run: | 
+        jq steps.meta.outputs
+    -
       name: Policy Tag
       id: policy-tag
       uses: opcr-io/policy-tag-action@v4
