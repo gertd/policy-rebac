@@ -59,8 +59,9 @@ jobs:
       id: policy-tag
       uses: opcr-io/policy-tag-action@v4
       with:
-        source_tag: "${{ steps.config.outputs.server }}/${{ steps.config.outputs.repo }}:latest"
+        source_tag: ${{ steps.config.outputs.server }}"/"${{ steps.config.outputs.repo }}":latest"
         target_tags: ${{ steps.meta.outputs.target_tags }}
+        verbosity: debug
       env:
         POLICY_DEFAULT_DOMAIN: ${{ steps.config.outputs.server }}
     - 
