@@ -37,8 +37,10 @@ jobs:
           type=semver,pattern={{major}}
     - 
       name: JQ
+      env:
+        DOCKER_META_JSON: ${{ steps.meta.outputs.json }}
       run: |
-        echo env.DOCKER_METADATA_OUTPUT_TAG_NAMES | jq .
+        jq -c '.["tag-names"]' <<< "$DOCKER_META_JSON"
     - 
       name: Clean tags array
       id: clean
