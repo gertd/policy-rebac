@@ -58,7 +58,7 @@ jobs:
       name: Dump meta
       id: dump-meta
       run: | 
-        echo steps.meta.outputs | jq .
+        echo ${{ steps.meta.outputs.tags }} | jq .
     -
       name: Policy Tag
       id: policy-tag
