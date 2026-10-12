@@ -39,10 +39,14 @@ jobs:
       name: Pass clean tags array
       env:
         # GitHub automatically converts the object reference into a clean JSON array
-        CLEAN_TAGS_JSON: ${{ toJSON(fromJSON(steps.meta.outputs.json).tags) }}
+        CLEAN_TAGS_JSON: >-
+          ${{ toJSON(
+          format('[ "ghcr.io/gertd/policy-rebac:{0}" ]', 
+              join(fromJSON(steps.meta.outputs.json)['tag-names'], '", "ghcr.io/gertd/policy-rebac:')
+            )
+          ) }}
       run: |
         echo "Your clean array is ready: $CLEAN_TAGS_JSON"
-
     - 
       name: Policy Login
       id: policy-login
