@@ -60,7 +60,7 @@ jobs:
       uses: opcr-io/policy-tag-action@v4
       with:
         source_tag: ${{ steps.config.outputs.server }}"/"${{ steps.config.outputs.repo }}":latest"
-        target_tags: ${{ steps.meta.outputs.target_tags }}
+        target_tags: ${{ steps.meta.outputs.tags }}
         verbosity: debug
       env:
         POLICY_DEFAULT_DOMAIN: ${{ steps.config.outputs.server }}
@@ -69,7 +69,7 @@ jobs:
       id: policy-push
       uses: opcr-io/policy-push-action@v4
       with:
-        tags: ${{ steps.meta.outputs.target_tags }}
+        tags: ${{ steps.meta.outputs.tags }}
       env:
         POLICY_DEFAULT_DOMAIN: ${{ steps.config.outputs.server }}
     - 
