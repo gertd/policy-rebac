@@ -52,8 +52,8 @@ jobs:
         echo "$RAW_ARRAY"
     -
       name: Use Tags Array
-      run:
-        echo "$RAW_ARRAY"
+      run: |
+        echo "{{ steps.clean.outputs.tags }}"
     - 
       name: Policy Login
       id: policy-login
@@ -84,7 +84,7 @@ jobs:
       uses: opcr-io/policy-tag-action@v4
       with:
         source_tag: ${{ steps.config.outputs.server }}/${{ steps.config.outputs.repo }}:latest
-        target_tags: ${{ steps.clean.outputs.clean }}
+        target_tags: ${{ steps.clean.outputs.clean.tags }}
         verbosity: debug
       env:
         POLICY_DEFAULT_DOMAIN: ${{ steps.config.outputs.server }}
