@@ -45,10 +45,6 @@ jobs:
         echo "tags<<EOF" >> "$GITHUB_OUTPUT"
         echo "$RESULT" >> "$GITHUB_OUTPUT"
         echo "EOF" >> "$GITHUB_OUTPUT"
-    -
-      name: Use Tags Array
-      run: |
-        echo "{{ steps.clean.outputs.tags }}"
     - 
       name: Policy Login
       id: policy-login
@@ -68,11 +64,6 @@ jobs:
         rego_version: "rego.v1"
       env:
         POLICY_DEFAULT_DOMAIN: ${{ steps.config.outputs.server }}
-    # -
-    #   name: Dump meta
-    #   id: dump-meta
-    #   run: | 
-    #     echo ${{ steps.meta.outputs.tags }} | jq .
     -
       name: Policy Tag
       id: policy-tag
@@ -88,7 +79,7 @@ jobs:
       id: policy-push
       uses: opcr-io/policy-push-action@v4
       with:
-        tags: ${{ fromJSON(steps.meta.outputs.json).tags }}
+        tags: ${{ steps.clean.outputs.tags }}
       env:
         POLICY_DEFAULT_DOMAIN: ${{ steps.config.outputs.server }}
     - 
