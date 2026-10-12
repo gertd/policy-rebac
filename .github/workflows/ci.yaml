@@ -31,7 +31,7 @@ jobs:
         version: latest
     - 
       name: Lint
-      run: regal lint --format github ./src      
+      run: regal lint --format github ./content/src      
     - 
       name: Policy Build
       id: policy-build
