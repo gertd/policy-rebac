@@ -36,18 +36,19 @@ jobs:
           type=semver,pattern={{major}}.{{minor}}
           type=semver,pattern={{major}}
     - 
-      name: Pass clean tags array
+      name: Clean tags array
       id: clean
       env:
-        # GitHub automatically converts the object reference into a clean JSON array
-        CLEAN_TAGS_JSON: >-
+        RAW_ARRAY: >-
           ${{ toJSON(
           format('[ "ghcr.io/gertd/policy-rebac:{0}" ]', 
               join(fromJSON(steps.meta.outputs.json)['tag-names'], '", "ghcr.io/gertd/policy-rebac:')
             )
           ) }}
       run: |
-        echo "Your clean array is ready: $CLEAN_TAGS_JSON"
+        echo "tags<<EOF" >> $GITHUB_OUTPUT
+        echo "$RAW_ARRAY" >> $GITHUB_OUTPUT
+        echo "EOF" >> $GITHUB_OUTPUT
     - 
       name: Policy Login
       id: policy-login
@@ -78,7 +79,7 @@ jobs:
       uses: opcr-io/policy-tag-action@v4
       with:
         source_tag: ${{ steps.config.outputs.server }}/${{ steps.config.outputs.repo }}:latest
-        target_tags: ${{ env.CLEAN_TAGS_JSON }}
+        target_tags: ${{ steps.clean.outputs.clean }}
         verbosity: debug
       env:
         POLICY_DEFAULT_DOMAIN: ${{ steps.config.outputs.server }}
