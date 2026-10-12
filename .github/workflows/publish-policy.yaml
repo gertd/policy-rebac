@@ -40,7 +40,7 @@ jobs:
       env:
         DOCKER_META_JSON: ${{ steps.meta.outputs.json }}
       run: |
-        jq -c '.["tag-names"]' <<< "$DOCKER_META_JSON"
+        jq -c --arg pre "${{ steps.config.outputs.server }}/${{ steps.config.outputs.repo }}:" '.["tag-names"] | map($pre + .)' <<< "$DOCKER_META_JSON"
     - 
       name: Clean tags array
       id: clean
