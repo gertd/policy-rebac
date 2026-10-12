@@ -38,18 +38,9 @@ jobs:
     - 
       name: Clean tags array
       id: clean
-      env:
-        RAW_ARRAY: >-
-          ${{ toJSON(
-          format('[ "ghcr.io/gertd/policy-rebac:{0}" ]', 
-              join(fromJSON(steps.meta.outputs.json)['tag-names'], '", "ghcr.io/gertd/policy-rebac:')
-            )
-          ) }}
       run: |
-        echo "tags<<EOF" >> $GITHUB_OUTPUT
-        echo "$RAW_ARRAY" >> $GITHUB_OUTPUT
-        echo "EOF" >> $GITHUB_OUTPUT
-        echo "$RAW_ARRAY"
+        RESULT=$(echo "{{ steps.meta.outputs.json)['tag-names'] }}" | jq -c --arg pre "${{ steps.config.outputs.server }}/${{ steps.config.outputs.repo }}:" '.["tag-names"] | map($pre + .)')
+        echo "tags=${RESULT}" >> $GITHUB_OUTPUT
     -
       name: Use Tags Array
       run: |
