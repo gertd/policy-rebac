@@ -1,9 +1,9 @@
 {
     "$manifest": {
-        "org.opencontainers.image.vendor": "Aserto",
-        "org.opencontainers.image.authors": "Aserto",
-        "org.opencontainers.image.description": "A generic ReBAC policy using Aserto's built-ins.",
-        "org.opencontainers.image.source": "https://github.com/aserto-templates/policy-rebac",
+        "org.opencontainers.image.vendor": "Topaz",
+        "org.opencontainers.image.authors": "topaz-dev",
+        "org.opencontainers.image.description": "A generic ReBAC policy using Topaz built-ins.",
+        "org.opencontainers.image.source": "https://github.com/gertd/policy-rebac",
         "org.openpolicyregistry.template.kind": "policy"
     }
 }

@@ -25,6 +25,14 @@ jobs:
       with:
         file: .github/config-policy.yaml
     - 
+      name: Setup Regal
+      uses: open-policy-agent/setup-regal@v1
+      with:
+        version: latest
+    - 
+      name: Lint
+      run: regal lint --format github ./src      
+    - 
       name: Policy Build
       id: policy-build
       uses: opcr-io/policy-build-action@v4
