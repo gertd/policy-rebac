@@ -29,8 +29,8 @@ jobs:
       with:
         images: |
           {{`${{ steps.config.outputs.server }}/${{ steps.config.outputs.repo }}`}}
-        flavor: |
-          latest=auto
+        # flavor: |
+        #   latest=auto
         tags: |
           type=semver,pattern={{version}}
           type=semver,pattern={{major}}.{{minor}}
