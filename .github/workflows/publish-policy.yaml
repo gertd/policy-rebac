@@ -60,7 +60,7 @@ jobs:
       uses: opcr-io/policy-tag-action@v4
       with:
         source_tag: ${{ steps.config.outputs.server }}/${{ steps.config.outputs.repo }}:latest
-        target_tags: ${{ steps.meta.outputs.tag_names }}
+        target_tags: ${{ steps.meta.outputs.tags.target.docker-metadata-action.tags }}
         verbosity: debug
       env:
         POLICY_DEFAULT_DOMAIN: ${{ steps.config.outputs.server }}
