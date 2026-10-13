@@ -59,7 +59,7 @@ jobs:
       uses: opcr-io/policy-build-action@v4
       with:
         src: content/src
-        tag: ${{ steps.config.outputs.repo }}
+        tag: "${{ steps.config.outputs.server }}/${{ steps.config.outputs.repo }}/$GITHUB_REF"
         revision: "$GITHUB_SHA"
         rego_version: "rego.v1"
       env:
@@ -69,7 +69,7 @@ jobs:
       id: policy-tag
       uses: opcr-io/policy-tag-action@v4
       with:
-        source_tag: ${{ steps.config.outputs.server }}/${{ steps.config.outputs.repo }}:latest
+        source_tag: "${{ steps.config.outputs.server }}/${{ steps.config.outputs.repo }}/$GITHUB_REF"
         target_tags: ${{ steps.clean.outputs.tags }}
         verbosity: debug
       env:
