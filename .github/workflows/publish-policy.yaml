@@ -19,7 +19,7 @@ jobs:
     - 
       name: Read policy config
       id: config
-      uses: gertd/yaml-reader-action@v1.0.29
+      uses: gertd/yaml-reader-action@v1
       with:
         file: .github/config-policy.yaml
     -
